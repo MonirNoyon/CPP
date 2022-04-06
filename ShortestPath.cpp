@@ -150,6 +150,7 @@ int main()
 {
   while(1)
   {
+      invalid=false;
     input();
     if(valid({stX,stY})){
    startEngine();
@@ -166,7 +167,7 @@ int main()
     }
     else
     {
-    cout<<"Ha Ha..You fool. That's a haunted place.\n";
+    cout<<"Ha Ha..You fool. Your current location is a haunted place.\n";
     delay(3);
     cout<<"You're as good as dead.\n";
     delay(3);
