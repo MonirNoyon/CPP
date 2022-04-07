@@ -1,9 +1,5 @@
 #include<bits/stdc++.h>
-// #include<conio.h>
-//  #include<dos.h>
-//  #include<unistd.h>
-// #include<chrono>
-// #include<thread>
+
 using namespace std;
 #define ll long long
 #define yes "YES"
@@ -16,11 +12,9 @@ int dx[]={0,0,-1,1};
 int dy[]={-1,1,0,0};
 int level[1000][1000];
 pair<int,int>ParentCell[1000][1000];
-//map<pair<int,int> >ParentCell[1000][1000];
 bool invalid;
-//vector<vector<pair<int,int>>>ParentCell(M,vector<int>(N,0));
 void delay(int a);
-
+char pathCharacter(int nX,int nY,int x,int y);
 bool valid(pair<int,int>CurrentCell)
 {
     int x=CurrentCell.first;
@@ -73,7 +67,7 @@ void input()
 {
     cout<<"Enter the number for square matrix(Row==Column):: ";
     cin>>n;
-    cout<<"\nNow enter the matrix\n";
+    cout<<"\nNow enter the matrix (Use '*' for good cell and '#' for bad cell)\n";
     for(int i=0;i<n;i++)
     {
         for(int j=0;j<n;j++)
@@ -111,7 +105,7 @@ void startEngine()
        enX=cell.first;
        enY=cell.second;
        en++;
-       //these cells with value '1' indicates the path
+       //these cells indicates the path
    }
 
    ans.push_back({stX,stY});
@@ -124,7 +118,15 @@ en--;
        cout<<"              ";
        for(int j=0;j<n;j++)
        {
-           if(i==ans[en].first&&j==ans[en].second)ar[i][j]='1';
+           if(i==ans[en].first&&j==ans[en].second)
+           {
+               if(en==0)ar[i][j]='$';
+
+               else
+               {
+              ar[i][j]=pathCharacter(ans[en-1].first,ans[en-1].second,i,j);
+               }
+           }
            cout<<ar[i][j];
        }
        cout<<endl;
@@ -133,6 +135,7 @@ en--;
   if(en>0)
   {
       system("cls");
+      cout<<"Yippee...Found it :)"<<endl<<endl;
       cout<<"-------------Animating Fastest way to your destination-------------                 Play="<<play<<endl;
 
    }
@@ -174,7 +177,7 @@ int main()
     cout<<" See you for not mind..he he :}\n";
     return 0;
  }
-   cout<<"\nWanna play again?\nWrite 'Y' as YES or 'N' as NO(Without quotation)\n";
+   cout<<"\nWanna play again?\nWrite 'Y' as YES or 'N' as NO (Without quotation)\n";
    char c;
    while(1){
    cin>>c;
@@ -209,6 +212,22 @@ int main()
 ****#****#
 */
 
+//character creation
+char pathCharacter(int nX,int nY,int x,int y)
+{
+if(nX==x)
+{
+    if(nY>y) return 'R';
+    else return 'L';
+    }
+ if(nY==y)
+ {
+     if(nX>x) return 'D';
+     else return 'U';
+ }
+else return '|';
+}
+//delay
 void delay(int a)
 {
   int f;
